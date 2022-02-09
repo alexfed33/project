@@ -78,7 +78,7 @@ check_auth();
                             <div class="card-body border-faded border-top-0 border-left-0 border-right-0 rounded-top">
                                 <div class="d-flex flex-row align-items-center">
                                 <span class="status status-success mr-3">
-                                    <span class="rounded-circle profile-image d-block " style="background-image:url('img/demo/avatars/avatar-b.png'); background-size: cover;"></span>
+                                    <span class="rounded-circle profile-image d-block " style="background-image:url('img/avatars/<? echo $users['avatar']; ?>'); background-size: cover;"></span>
                                 </span>
 
                                     <div class="info-card-text flex-1">
@@ -92,7 +92,7 @@ check_auth();
                                                     <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                                     <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                                 </a>
-    
+
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="edit.php?id=<?echo $users['id'];?>">
                                                         <i class="fa fa-edit"></i>
@@ -114,12 +114,12 @@ check_auth();
                                                 </div> <? }
 
                                               if ($_SESSION['role'] == 'user' AND $_SESSION['id'] == $users['id']) { ?>
-    
+
                                                   <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                                       <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
                                                       <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                                   </a>
-    
+
                                                   <div class="dropdown-menu">
                                                       <a class="dropdown-item" href="edit.php?id=<?echo $users['id'];?>">
                                                           <i class="fa fa-edit"></i>
@@ -140,8 +140,8 @@ check_auth();
                                                       </a>
                                                   </div>
                                               <? }?>
-                                        
-                                        <span class="text-truncate text-truncate-xl"> <? echo $users['jobs'];?>.</span>
+
+                                        <span class="text-truncate text-truncate-xl"> <? echo $users['jobs'];?></span>
                                     </div>
                                     <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                         <span class="collapsed-hidden">+</span>
@@ -151,23 +151,25 @@ check_auth();
                             </div>
                             <div class="card-body p-0 collapse show">
                                 <div class="p-3">
-                                    <a href="tel:+13174562564" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                        <i class="fas fa-mobile-alt text-muted mr-2"></i>  <? echo $users['phone'];?></a>
-                                    <a href="mailto:oliver.kopyov@smartadminwebapp.com" class="mt-1 d-block fs-sm fw-400 text-dark">
-                                        <i class="fas fa-mouse-pointer text-muted mr-2"></i>  <? echo $users['email'];?></a>
+                                    <a href="tel:<? echo $users['phone'];?>" class="mt-1 d-block fs-sm fw-400 text-dark">
+                                        <i class="fas fa-mobile-alt text-muted mr-2"></i> <? echo $users['phone'];?></a>
+                                    <a href="mailto:<? echo $users['email'];?>" class="mt-1 d-block fs-sm fw-400 text-dark">
+                                        <i class="fas fa-mouse-pointer text-muted mr-2"></i> <? echo $users['email'];?></a>
                                     <address class="fs-sm fw-400 mt-4 text-muted">
                                         <i class="fas fa-map-pin mr-2"></i>  <? echo $users['address'];?></address>
+
                                     <div class="d-flex flex-row">
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#4680C2">
-                                            <i class="fab fa-vk"></i>
+                                        <a href="<? echo $users['vk'];?>" class="mr-2 fs-xxl" style="color:#4680C2">
+                                             <i class="fab fa-vk"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#38A1F3">
-                                            <i class="fab fa-telegram"></i>
+                                        <a href="<? echo $users['telegram'];?>" class="mr-2 fs-xxl" style="color:#38A1F3">
+                                             <i class="fab fa-telegram"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="mr-2 fs-xxl" style="color:#E1306C">
-                                            <i class="fab fa-instagram"></i>
+                                        <a href="<? echo $users['instagram'];?> " class="mr-2 fs-xxl" style="color:#E1306C">
+                                             <i class="fab fa-instagram"></i>
                                         </a>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -177,7 +179,7 @@ check_auth();
 
             </div>
         </main>
-     
+
         <!-- BEGIN Page Footer -->
         <footer class="page-footer" role="contentinfo">
             <div class="d-flex align-items-center flex-1 text-muted">
@@ -190,7 +192,7 @@ check_auth();
                 </ul>
             </div>
         </footer>
-        
+
     </body>
 
     <script src="js/vendors.bundle.js"></script>
