@@ -1,3 +1,15 @@
+<?php
+session_start();
+require "functions.php";
+
+check_auth();
+is_author($_SESSION['id'], $_GET['id']);
+
+$user_info = get_user_by_id($_GET['id']);
+$_SESSION['user_id'] = $user_info['id'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +50,8 @@
             </h1>
 
         </div>
-        <form action="">
+
+        <form action="edit_info.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,28 +63,28 @@
                                 <!-- username -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Имя</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Иван иванов">
+                                    <input type="text" name="name" id="simpleinput" class="form-control" value="<?echo $user_info['name'];?>">
                                 </div>
 
                                 <!-- title -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Место работы</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Marlin Веб-разработчик">
+                                    <input type="text" name="jobs" id="simpleinput" class="form-control" value="<?echo $user_info['jobs'];?>">
                                 </div>
 
                                 <!-- tel -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Номер телефона</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="8 888 8888 88">
+                                    <input type="text" name="phone" id="simpleinput" class="form-control" value="<?echo $user_info['phone'];?>">
                                 </div>
 
                                 <!-- address -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Адрес</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Восточные Королевства, Штормград">
+                                    <input type="text" name="address" id="simpleinput" class="form-control" value="<?echo $user_info['address'];?>">
                                 </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Редактировать</button>
+                                    <button type="submit" class="btn btn-warning">Редактировать</button>
                                 </div>
                             </div>
                         </div>
