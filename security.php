@@ -1,3 +1,16 @@
+<?php
+session_start();
+require "functions.php";
+
+check_auth();
+is_author($_SESSION['id'], $_GET['id']);
+
+$user_info = get_user_by_id($_GET['id']);
+$_SESSION['user_id'] = $user_info['id'];
+$_SESSION['email'] = $user_info['email'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +45,16 @@
         </div>
     </nav>
     <main id="js-page-content" role="main" class="page-content mt-3">
+        <? display_flash_message("danger"); ?>
+        <? display_flash_message("success"); ?>
+
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-lock'></i> Безопасность
             </h1>
 
         </div>
-        <form action="">
+        <form action="security_edit.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,13 +66,13 @@
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input type="text" name="email" id="simpleinput" class="form-control" value="<?echo $user_info['email'];?>">
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" name="password" id="simpleinput" class="form-control">
                                 </div>
 
                                 <!-- password confirmation-->
@@ -67,7 +83,7 @@
 
 
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Изменить</button>
+                                    <button type="submit" class="btn btn-warning">Изменить</button>
                                 </div>
                             </div>
                         </div>
