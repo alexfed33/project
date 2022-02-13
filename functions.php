@@ -106,14 +106,12 @@ function edit_information($name, $jobs, $phone, $address, $user_id) {
     $pdo->prepare($sql)->execute([$name, $jobs, $phone, $address, $user_id]);
 }
 
-
 function set_status($status, $user_id) {
     $pdo = config();
 
     $sql = "UPDATE users SET status=:status WHERE id=:id";
     $pdo->prepare($sql)->execute([$status, $user_id]);
 }
-
 
 function upload_avatar($filename, $tmp_name, $user_id) {
     $pdo = config();
@@ -136,10 +134,41 @@ function set_social_links($vk, $telegram, $instagram, $user_id) {
     $pdo->prepare($sql)->execute([$vk, $telegram, $instagram, $user_id]);
 }
 
+function is_author ($logged_user_id, $edit_user_id) {
+    if ($_SESSION['role'] == 'admin') {
+        return true;
+    }
+    if ($logged_user_id == $edit_user_id) {
+        return true;
+    } else {
+        set_flash_message('danger', 'Можно редактировать только свой аккаунт');
+        redirect_to("users.php");
+    }
+}
+
+function get_user_by_id($id) {
+    $pdo = config();
+
+    $sql = "SELECT * FROM users WHERE id=:id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(["id" => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function edit_credentials($email, $password, $user_id) {
+    $pdo = config();
+
+    $sql = "UPDATE users SET email=:email, password=:password WHERE id=:id";
+    $pdo->prepare($sql)->execute([$email, password_hash($password, PASSWORD_DEFAULT), $user_id]);
+    set_flash_message('success', 'Профиль успешно обновлен!');
+    redirect_to("page_profile.php?id=$user_id");
+}
+
 function logout() {
     unset($_SESSION['auth']);
     session_destroy();
     redirect_to("page_login.php");
 }
+
 
 
