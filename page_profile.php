@@ -43,7 +43,10 @@ $user_profile = get_user_by_id($id);
                 </ul>
             </div>
         </nav>
+
         <main id="js-page-content" role="main" class="page-content mt-3">
+            <? display_flash_message("danger"); ?>
+            <? display_flash_message("success"); ?>
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-user'></i><?echo $user_profile['name'];?>
