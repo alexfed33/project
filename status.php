@@ -1,3 +1,13 @@
+<?php
+session_start();
+require "functions.php";
+
+check_auth();
+is_author($_SESSION['id'], $_GET['id']);
+
+$user_info = get_user_by_id($_GET['id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +36,7 @@
                     <a class="nav-link" href="page_login.php">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="logout.php">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +48,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="status_edit.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -52,15 +62,19 @@
                                         <!-- status -->
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
-                                            <select class="form-control" id="example-select">
-                                                <option>Онлайн</option>
-                                                <option>Отошел</option>
-                                                <option>Не беспокоить</option>
-                                            </select>
+                                              <input type="hidden" name="id" value="<?echo $user_info['id'];?>">
+                                                <select name="set_status" class="form-control" id="example-select">
+
+                                                    <?foreach (status() as $key => $value) { ?>
+                                                         <option <? if($user_info['status'] == $key)
+                                                             echo 'selected' ?> value="<? echo $key ?>"><? echo $value ?></option>
+                                                    <? }?>
+
+                                                </select>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                        <button class="btn btn-warning">Set Status</button>
+                                        <button type="submit" class="btn btn-warning">Set Status</button>
                                     </div>
                                 </div>
                             </div>
