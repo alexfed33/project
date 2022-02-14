@@ -4,7 +4,7 @@ require "functions.php";
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$user_id = $_SESSION['user_id'];
+$user_id = $_POST['id'];
 
 
 if ($_SESSION['email'] == $email) {
