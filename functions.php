@@ -106,6 +106,15 @@ function edit_information($name, $jobs, $phone, $address, $user_id) {
     $pdo->prepare($sql)->execute([$name, $jobs, $phone, $address, $user_id]);
 }
 
+function status() {
+    $status_array = [
+        'online' => 'Онлайн',
+        'away' => 'Отошел',
+        'busy' => 'Не беспокоить'
+    ];
+    return $status_array;
+}
+
 function set_status($status, $user_id) {
     $pdo = config();
 
@@ -166,6 +175,11 @@ function edit_credentials($email, $password, $user_id) {
 
 function logout() {
     unset($_SESSION['auth']);
+    unset($_SESSION['role']);
+    unset($_SESSION['id']);
+    unset($_SESSION['user']);
+    unset($_SESSION['email']);
+
     session_destroy();
     redirect_to("page_login.php");
 }
