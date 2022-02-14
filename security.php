@@ -6,7 +6,6 @@ check_auth();
 is_author($_SESSION['id'], $_GET['id']);
 
 $user_info = get_user_by_id($_GET['id']);
-$_SESSION['user_id'] = $user_info['id'];
 $_SESSION['email'] = $user_info['email'];
 ?>
 
@@ -39,7 +38,7 @@ $_SESSION['email'] = $user_info['email'];
                     <a class="nav-link" href="page_login.php">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="logout.php">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -66,6 +65,7 @@ $_SESSION['email'] = $user_info['email'];
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
+                                    <input type="hidden" name="id" value="<?echo $user_info['id'];?>">
                                     <input type="text" name="email" id="simpleinput" class="form-control" value="<?echo $user_info['email'];?>">
                                 </div>
 
