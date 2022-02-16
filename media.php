@@ -1,3 +1,14 @@
+<?php
+session_start();
+require "functions.php";
+
+check_auth();
+is_author($_SESSION['id'], $_GET['id']);
+$id = $_GET['id'];
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +49,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="media_edit.php" enctype="multipart/form-data" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -48,17 +59,18 @@
                             </div>
                             <div class="panel-content">
                                 <div class="form-group">
-                                    <img src="img/demo/authors/josh.png" alt="" class="img-responsive" width="200">
+                                    <input type="hidden" name="id" value="<?echo $_GET['id'];?>">
+                                    <img src="<? has_avatar(null, $id); ?>" alt="" class="img-responsive" width="200">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Выберите аватар</label>
-                                    <input type="file" id="example-fileinput" class="form-control-file">
+                                    <input type="file" name="avatar" id="example-fileinput" class="form-control-file">
                                 </div>
 
 
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Загрузить</button>
+                                    <button type="submit" class="btn btn-warning">Загрузить</button>
                                 </div>
                             </div>
                         </div>
