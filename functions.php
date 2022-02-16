@@ -122,6 +122,7 @@ function set_status($status, $user_id) {
     $pdo->prepare($sql)->execute([$status, $user_id]);
 }
 
+
 function upload_avatar($filename, $tmp_name, $user_id) {
     $pdo = config();
 
@@ -151,7 +152,7 @@ function is_author ($logged_user_id, $edit_user_id) {
         return true;
     } else {
         set_flash_message('danger', 'Можно редактировать только свой аккаунт');
-        redirect_to("users.php");
+        redirect_to("users.php"); exit();
     }
 }
 
@@ -173,13 +174,34 @@ function edit_credentials($email, $password, $user_id) {
     redirect_to("page_profile.php?id=$user_id");
 }
 
-function logout() {
-    unset($_SESSION['auth']);
-    unset($_SESSION['role']);
-    unset($_SESSION['id']);
-    unset($_SESSION['user']);
-    unset($_SESSION['email']);
 
+
+function has_avatar($image, $user_id) {
+    $user = get_user_by_id($user_id);
+    $avatar = $user['avatar'];
+    $filename_avatar = "img/avatars/$avatar";
+    $filename_image = "img/avatars/$image";
+
+    if(!empty($image) AND file_exists($filename_image) == true) {
+        echo "img/avatars/$image";
+    }
+    if(!empty($avatar) AND file_exists($filename_avatar) == true) {
+        echo "img/avatars/$avatar";
+    }
+    if(empty($image OR $avatar) OR (file_exists($filename_image) == false OR file_exists($filename_avatar) == false )) {
+        echo "img/avatars/avatar-m.png";
+    }
+}
+
+
+function delete_user($user_id) {
+    $pdo = config();
+    $pdo->prepare("DELETE FROM users WHERE id=:id")->execute([$user_id]);
+}
+
+
+function logout() {
+    unset($_SESSION['auth'],$_SESSION['role'], $_SESSION['id'], $_SESSION['user'], $_SESSION['email']);
     session_destroy();
     redirect_to("page_login.php");
 }
